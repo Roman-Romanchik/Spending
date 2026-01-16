@@ -1,5 +1,6 @@
 package org.aren_rend.controller;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,135 +9,168 @@ import javafx.scene.control.*;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import lombok.RequiredArgsConstructor;
+import org.aren_rend.SpendingService;
 import org.aren_rend.model.MainMenuModel;
 import org.aren_rend.utilities.Validator;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class MainMenuController implements Initializable {
 	@FXML
-	private Button addButton, applyButton;
+	private Button buttonAdd;
 	@FXML
-	private TextField fieldSpendingName, fieldSpendingPrice, fieldForOther, fieldDirectorySaveFile;
+	private TextField fieldSpendingName, fieldSpendingPrice, fieldAmount, fieldOtherCategory, fieldOtherSubcategory;
 	@FXML
-	private CheckBox checkBoxFood, checkBoxSport, checkBoxOther;
+	private ChoiceBox<String> choiceBoxCategory, choiceBoxSubcategory;
 	@FXML
 	private Label labelMonthSpending, labelAllSpending;
 	@FXML
 	private ListView<String> listViewForNotes;
-	private static Path filePath;
+
 	private final ObservableList<String> notes = FXCollections.observableArrayList();
 	MainMenuModel mmm;
 	Validator validator;
+    private final SpendingService spendingService;
+    private boolean isReadyToSave = false;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+        setButtonAddProperty();
+        disableHideCategoryField();
+        disableHideSubcategoryField();
+        displayNotesInBase();
+        fillCategoryChoiceBox();
 		validator = new Validator();
 		mmm = new MainMenuModel();
-		applyDirectory();
-		loadCheckBoxes();
+
 	}
 
-	private void loadData() {
-		try {
-			List<String> lines = Files.readAllLines(filePath);
-			notes.addAll(lines);
-			listViewForNotes.setItems(notes);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+    private void disableHideCategoryField() {
+        fieldOtherCategory.clear();
+        fieldOtherCategory.setDisable(true);
+        fieldOtherCategory.setVisible(false);
+    }
+
+    private void disableHideSubcategoryField() {
+        fieldOtherSubcategory.clear();
+        fieldOtherSubcategory.setDisable(true);
+        fieldOtherSubcategory.setVisible(false);
+    }
+
+    private void enableCategoriesField() {
+        fieldOtherCategory.setDisable(false);
+        fieldOtherCategory.setVisible(true);
+    }
+
+    private void enableSubcategoryField() {
+        fieldOtherSubcategory.setDisable(false);
+        fieldOtherSubcategory.setVisible(true);
+    }
+
+	private void displayNotesInBase() {
+        notes.setAll(spendingService.displaySavedNotes());
+        listViewForNotes.setItems(notes);
 	}
 
-	private String category = "";
 
-	private void loadCheckBoxes() {
-		checkBoxFood.selectedProperty().addListener((obs, oldVal, newVal) -> {
-			if(newVal) {
-				category = "Food";
-				checkBoxSport.setSelected(false);
-				checkBoxSport.setDisable(true);
-				checkBoxOther.setSelected(false);
-				checkBoxOther.setDisable(true);
-				fieldForOther.setDisable(true);
-			} else {
-				checkBoxSport.setDisable(false);
-				checkBoxOther.setDisable(false);
-				fieldForOther.setDisable(false);
-			}
-		});
-		checkBoxSport.selectedProperty().addListener((obs, oldVal, newVal) -> {
-			if (newVal) {
-				category = "Sport";
-				checkBoxFood.setSelected(false);
-				checkBoxFood.setDisable(true);
-				checkBoxOther.setSelected(false);
-				checkBoxOther.setDisable(true);
-				fieldForOther.setDisable(true);
-			} else {
-				checkBoxFood.setDisable(false);
-				checkBoxOther.setDisable(false);
-				fieldForOther.setDisable(false);
-			}
-		});
-		checkBoxOther.selectedProperty().addListener((obs, oldVal, newVal) -> {
-			if(newVal) {
-				checkBoxSport.setSelected(false);
-				checkBoxSport.setDisable(true);
-				checkBoxFood.setSelected(false);
-				checkBoxFood.setDisable(true);
+    private void fillCategoryChoiceBox() {
+        ObservableList<String> items = choiceBoxCategory.getItems();
+        items.addAll("Food", "Sport", "Tech", "Transport", "Other");
+        choiceBoxCategory.setValue("Choose");
+    }
 
-			} else {
-				checkBoxSport.setDisable(false);
-				checkBoxFood.setDisable(false);
-			}
-		});
-	}
+    @FXML
+    private void changeSubcategory() {
+        if(choiceBoxCategory.getValue().equals("Other")) {
+            enableCategoriesField();
+            enableSubcategoryField();
+        } else {
+            disableHideSubcategoryField();
+            disableHideCategoryField();
+        }
+            choiceBoxSubcategory.getItems().clear();
+            fillSubcategoryChoiceBox();
+    }
 
-	@FXML
-	private void addNote() {
-		String fieldOther = fieldForOther.getText();
-		String fieldName = fieldSpendingName.getText();
-		String fieldPrice = fieldSpendingPrice.getText();
-		boolean isValidFieldOther = validator.isString(fieldOther);
-		boolean isValidFieldName = validator.isString(fieldName);
-		boolean isValidFieldPrice = validator.isNumber(fieldPrice);
-		if(isValidFieldName && isValidFieldPrice) {
-			if(checkBoxOther.isSelected() && isValidFieldOther) {
-				notes.add(mmm.makeNote(fieldOther, fieldName, fieldPrice, filePath));
-			} else {
-				notes.add(mmm.makeNote(category, fieldName, fieldPrice, filePath));
-			}
-		} else {
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setTitle("Error");
-			alert.setContentText("Wrong field parameter!");
-			alert.show();
-		}
-		addButton.setText(mmm.changeButtonText());
-		updateSpendingSum();
-	}
+    private void fillSubcategoryChoiceBox() {
+        ObservableList<String> items = choiceBoxSubcategory.getItems();
+        choiceBoxSubcategory.setValue("Choose");
+        switch(choiceBoxCategory.getValue()) {
+            case "Food" -> items.addAll("Water", "FF", "Normal");
+            case "Sport" -> items.addAll("GYM", "Protein", "Creatine", "Stuff");
+            case "Tech" -> items.addAll("Audio", "Video", "Monitor", "Phone", "PC");
+            case "Transport" -> items.addAll("Taxi", "Bus", "Car");
+            default -> items.add("Other");
+        }
+    }
+
+
+    @FXML
+    private void saveNote() {
+        checkReadyNote();
+        if(isReadyToSave) {
+            String note;
+            if(!choiceBoxCategory.getValue().equals("Other")) {
+                note = spendingService.saveNote(LocalDate.now(), choiceBoxCategory.getValue(), choiceBoxSubcategory.getValue(),
+                        fieldSpendingName.getText(), Integer.parseInt(fieldAmount.getText()), Integer.parseInt(fieldSpendingPrice.getText()));
+            } else {
+                note = spendingService.saveNote(LocalDate.now(), fieldOtherCategory.getText(), fieldOtherSubcategory.getText(),
+                        fieldSpendingName.getText(), Integer.parseInt(fieldAmount.getText()), Integer.parseInt(fieldSpendingPrice.getText()));
+            }
+            notes.add(note);
+            isReadyToSave = false;
+        }
+    }
+
+    private void setButtonAddProperty() {
+        buttonAdd.disableProperty().bind(Bindings.createBooleanBinding(() -> {
+                    boolean commonFieldsEmpty = fieldSpendingName.getText().trim().isEmpty() ||
+                            fieldSpendingPrice.getText().trim().isEmpty() ||
+                            fieldAmount.getText().trim().isEmpty();
+
+                    boolean categoryNotSelected = choiceBoxCategory.getValue() == null ||
+                            choiceBoxCategory.getValue().equals("Choose");
+
+                    boolean otherFieldsInvalid = isOtherFieldsInvalid();
+
+                    return commonFieldsEmpty || categoryNotSelected || otherFieldsInvalid;
+                },
+                fieldSpendingName.textProperty(),
+                fieldSpendingPrice.textProperty(),
+                fieldAmount.textProperty(),
+                choiceBoxCategory.valueProperty(),
+                choiceBoxSubcategory.valueProperty()
+        ));
+    }
+
+    private boolean isOtherFieldsInvalid() {
+        boolean otherFieldsInvalid;
+        if ("Other".equals(choiceBoxCategory.getValue())) {
+            otherFieldsInvalid = fieldOtherCategory.getText().trim().isEmpty() ||
+            fieldOtherSubcategory.getText().trim().isEmpty() ||
+            choiceBoxSubcategory.getValue() == null;
+        } else {
+            otherFieldsInvalid = choiceBoxSubcategory.getValue() == null ||
+                    choiceBoxSubcategory.getValue().equals("Choose");
+        }
+        return otherFieldsInvalid;
+    }
+
+    private void checkReadyNote() {
+        if(!fieldSpendingName.getText().isEmpty() && !fieldSpendingPrice.getText().isEmpty()
+                && (!choiceBoxCategory.getValue().equals("Choose")) && (!choiceBoxSubcategory.getValue().equals("Choose"))
+                && !fieldAmount.getText().isEmpty()) {
+            isReadyToSave = true;
+        }
+    }
 
 	private void updateSpendingSum() {
 		labelAllSpending.setText(mmm.getAllSpending(notes));
 		labelMonthSpending.setText(mmm.getMonthSpending(notes));
-	}
-
-	@FXML
-	private void applyDirectory() {
-		notes.clear();
-		String directory = fieldDirectorySaveFile.getText();
-		filePath = Paths.get(fieldDirectorySaveFile.getPromptText());
-		if(!directory.trim().isEmpty()) {
-			filePath = Paths.get(directory);
-		}
-		loadData();
-		updateSpendingSum();
-		applyButton.setText("Applied!");
 	}
 }

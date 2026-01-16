@@ -4,26 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32695874-0df0-4f40-82f2-6290fbd32744" name="Changes" comment="Add new branch for work. Add alert. Delete one class. Improv Validator.java">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/aren_rend/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+    <list default="true" id="32695874-0df0-4f40-82f2-6290fbd32744" name="Changes" comment="Add Spring JPA and improve launcher for this">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/aren_rend/SpendingEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/aren_rend/SpendingRepositories.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/aren_rend/SpendingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/aren_rend/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/aren_rend/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/aren_rend/controller/MainMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/aren_rend/controller/MainMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/aren_rend/data/SaveData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/aren_rend/data/SaveData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/aren_rend/model/MainMenuModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/aren_rend/model/MainMenuModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/aren_rend/utilities/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/aren_rend/utilities/Validator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/main_menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/main_menu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +62,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Roman-Romanchik/Spending_Console&quot;,
-    &quot;accountId&quot;: &quot;a31d2e8e-55c3-4f6e-9d17-a3270b9c68dd&quot;
+    &quot;accountId&quot;: &quot;50f46ebf-2570-4233-9418-8888c82a8966&quot;
   }
 }</component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="$USER_HOME$/.gradle/wrapper/dists/gradle-9.2.0-bin/11i5gvueggl8a5cioxuftxrik/gradle-9.2.0" javaHome="/usr/lib/jvm/default" gradleVersion="9.2.0" />
@@ -87,26 +77,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build Spending_Console.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.Spending [:org.aren_rend.Launcher.main()].executor": "Run",
-    "Gradle.Spending [:org.aren_rend.Main.main()].executor": "Run",
-    "Gradle.Spending_Console [:org.aren_rend.Main.main()].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "workBranch",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/aren_rend/Programs/Programs/1_Intellij_Idea/Projects/Spending",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build Spending_Console.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Spending [:org.aren_rend.Launcher.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Spending [:org.aren_rend.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Spending_Console [:org.aren_rend.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;workBranch&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/aren_rend/Programs/Programs/1_Intellij_Idea/Projects/Spending&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
@@ -163,7 +153,23 @@
       <option name="project" value="LOCAL" />
       <updated>1765818690580</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add Spring JPA and improve launcher for this">
+      <option name="closed" value="true" />
+      <created>1767709929368</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1767709929368</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add Spring JPA and improve launcher for this">
+      <option name="closed" value="true" />
+      <created>1767710100644</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1767710100644</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -181,6 +187,7 @@
     <MESSAGE value="v.1 Application is done. If write true strings all will be work. Week label will delete." />
     <MESSAGE value="For v.1 Application add chose directory file for spending. Delete useless classes" />
     <MESSAGE value="Add new branch for work. Add alert. Delete one class. Improv Validator.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add new branch for work. Add alert. Delete one class. Improv Validator.java" />
+    <MESSAGE value="Add Spring JPA and improve launcher for this" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Spring JPA and improve launcher for this" />
   </component>
 </project>

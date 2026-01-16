@@ -1,10 +1,8 @@
 package org.aren_rend.model;
 
 import javafx.collections.ObservableList;
-import org.aren_rend.data.SaveData;
 import org.springframework.stereotype.Component;
 
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -13,30 +11,6 @@ import java.util.regex.Pattern;
 
 @Component
 public class MainMenuModel {
-	private int count = 0;
-
-
-	public String changeButtonText() {
-		count++;
-		if(count % 2 == 1) {
-			return "Add next!";
-		} else {
-			return "More!";
-		}
-	}
-
-	public String makeNote(String category, String spendingName, String spendingPrice, Path filePath) {
-		StringBuilder note = new StringBuilder();
-		note.append(". ")
-				.append(category)
-				.append(" : ")
-				.append(spendingName)
-				.append(" : ")
-				.append(spendingPrice)
-				.append(" rub");
-		return SaveData.save(note, filePath);
-	}
-
 	public String getAllSpending(ObservableList<String> notes) {
 		return calculateSpending(notes);
 	}

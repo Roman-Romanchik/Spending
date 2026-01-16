@@ -3,6 +3,7 @@ plugins {
     id("application")
     id("org.openjfx.javafxplugin") version "0.1.0"
     id("org.springframework.boot") version "4.0.1"
+    id("io.freefair.lombok") version "9.1.0"
 }
 
 group = "org.aren_rend"
